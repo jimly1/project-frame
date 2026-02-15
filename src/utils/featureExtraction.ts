@@ -27,45 +27,63 @@ export function extractFeatures(landmarks: FaceLandmarks68): FaceFeatures {
   // Left eye: 36-41, Right eye: 42-47
   // Mouth: 48-67
 
-  // Face width: distance between jaw points (cheek to cheek) - points 1 and 15
-  const faceWidth = distance(points[1], points[15]);
+  // Calculate more stable widths
+  // Face width: distance between cheekbones (0 and 16 - zygomatic arch proxy)
+  const faceWidth = distance(points[0], points[16]);
 
-  // Face height: from chin (point 8) to top of forehead (estimated from eyebrows)
-  const foreheadTop = {
-    x: (points[19].x + points[24].x) / 2,
-    y: Math.min(points[19].y, points[24].y) - (points[27].y - Math.min(points[19].y, points[24].y)),
-  };
-  const faceHeight = distance(points[8], foreheadTop);
-
-  // Jaw width: distance between jaw points 4 and 12
+  // Jaw width: distance between gonions (4 and 12)
   const jawWidth = distance(points[4], points[12]);
 
-  // Forehead width: distance between outer eyebrow points 17 and 26
-  const foreheadWidth = distance(points[17], points[26]);
+  // Chin width: local curve at bottom (6 and 10)
+  const chinWidth = distance(points[6], points[10]);
 
-  // Cheekbone width: widest part of face (points 2 and 14)
-  const cheekboneWidth = distance(points[2], points[14]);
+  // Face height: distance between chin (8) and mid-point of eyes (stable proxy for face midline)
+  const leftEyeCenter = {
+    x: (points[36].x + points[39].x) / 2,
+    y: (points[36].y + points[39].y) / 2,
+  };
+  const rightEyeCenter = {
+    x: (points[42].x + points[45].x) / 2,
+    y: (points[42].y + points[45].y) / 2,
+  };
+  const eyeMidPoint = {
+    x: (leftEyeCenter.x + rightEyeCenter.x) / 2,
+    y: (leftEyeCenter.y + rightEyeCenter.y) / 2,
+  };
 
-  // Chin length: from chin tip (8) to mouth bottom (57)
-  const chinLength = distance(points[8], points[57]);
+  // Estimate full face height (eyes are roughly at 45-50% from top of head, but we use eye-to-chin as stable metric)
+  // Eye-to-chin is approx 60% of total face height for adult humans
+  const eyeToChin = distance(points[8], eyeMidPoint);
+  const faceHeight = eyeToChin * 1.618; // Using golden ratio approx for full height
 
-  // Calculate ratios
+  // Calculate robust ratios
+  // 1. Jaw-to-Cheek Ratio: Determines if face is narrowing (Heart/Oval) or wide at bottom (Square)
+  const jawCheekRatio = jawWidth / faceWidth;
+
+  // 2. Height-to-Width Ratio: Determines measurement aspect ratio (Long vs Wide)
   const heightWidthRatio = faceHeight / faceWidth;
-  const jawForeheadRatio = jawWidth / foreheadWidth;
-  const cheekboneWidthRatio = cheekboneWidth / faceWidth;
-  const chinHeightRatio = chinLength / faceHeight;
+
+  // 3. Chin-to-Jaw Ratio: Determines chin angularity (Pointy vs Flat/Wide)
+  const chinJawRatio = chinWidth / jawWidth;
+
+  // 4. Vertical Split: Ratio of lower face (nose-to-chin) to middle face (eye-to-nose)
+  // Nose bottom is 33
+  const noseBottom = points[33];
+  const noseToChin = distance(points[8], noseBottom);
+  const eyeToNose = distance(eyeMidPoint, noseBottom);
+  const verticalRatio = noseToChin / (eyeToNose || 1); // Avoid div by 0
 
   return {
     faceWidth,
     faceHeight,
     jawWidth,
-    foreheadWidth,
-    cheekboneWidth,
-    chinLength,
+    foreheadWidth: 0, // Deprecated/Unused
+    cheekboneWidth: faceWidth, // Alias
+    chinLength: chinWidth, // Alias for back-compat
     heightWidthRatio,
-    jawForeheadRatio,
-    cheekboneWidthRatio,
-    chinHeightRatio,
+    jawForeheadRatio: jawCheekRatio, // Remapped to reliable jaw/cheek ratio
+    cheekboneWidthRatio: chinJawRatio, // Remapped to chin/jaw ratio
+    chinHeightRatio: verticalRatio, // Remapped to vertical definition
   };
 }
 

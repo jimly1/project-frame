@@ -67,6 +67,26 @@ const Index = () => {
         }
 
         const det = detections[0];
+        const landmarks = det.landmarks;
+
+        // --- Pose Validation (Yaw Check) ---
+        const nose = landmarks.positions[30]; // Nose tip
+        const leftFace = landmarks.positions[0]; // Left ear/jaw start
+        const rightFace = landmarks.positions[16]; // Right ear/jaw end
+
+        const faceWidth = Math.abs(rightFace.x - leftFace.x);
+        const midFaceX = (leftFace.x + rightFace.x) / 2;
+        const noseOffset = Math.abs(nose.x - midFaceX);
+        const relativeYaw = noseOffset / faceWidth;
+
+        // Threshold: If nose deviation > 12% of face width, reject
+        if (relativeYaw > 0.12) {
+          setStatus("error");
+          setErrorMsg("Wajah tidak lurus ke depan. Mohon menghadap lurus ke kamera agar hasil akurat.");
+          return;
+        }
+
+        // --- Feature Extraction & KNN ---
         const features = extractFeatures(det.landmarks);
         const featureVector = getFeatureVector(features);
         const knnResult = predictKNN(featureVector, faceShapeDataset, 3);
@@ -207,7 +227,7 @@ const Index = () => {
             ].map((item) => (
               <div key={item.label} className="rounded-xl bg-card/60 border border-border/50 p-3">
                 <p className="text-xs font-display font-semibold text-foreground">{item.label}</p>
-                <p className="text-[10px] text-muted-foreground mt-0.5">{item.desc}</p>
+                <p className="text-lg font-display font-semibold text-foreground">{item.desc}</p>
               </div>
             ))}
           </div>

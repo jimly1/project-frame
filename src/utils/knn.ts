@@ -74,58 +74,48 @@ export function predictKNN(
   };
 }
 
-// Training dataset for face shapes
-// Features: [height/width ratio, jaw/forehead ratio, cheekbone/width ratio, chin/height ratio]
+// Refined dataset with robust features
+// Features: [heightWidthRatio, jawToCheekRatio, chinToJawRatio, verticalRatio]
 export const faceShapeDataset: DataPoint[] = [
-  // Oval
-  { features: [1.35, 0.82, 0.95, 0.22], label: "Oval" },
-  { features: [1.40, 0.80, 0.93, 0.20], label: "Oval" },
-  { features: [1.38, 0.78, 0.96, 0.21], label: "Oval" },
-  { features: [1.42, 0.81, 0.94, 0.19], label: "Oval" },
-  { features: [1.36, 0.79, 0.92, 0.23], label: "Oval" },
-  { features: [1.33, 0.83, 0.97, 0.20], label: "Oval" },
-  { features: [1.37, 0.77, 0.91, 0.22], label: "Oval" },
-  { features: [1.41, 0.84, 0.95, 0.18], label: "Oval" },
+  // OVAL: Balanced ratios, slightly longer than wide, soft chin
+  { features: [1.45, 0.75, 0.45, 1.0], label: "Oval" },
+  { features: [1.48, 0.73, 0.42, 1.02], label: "Oval" },
+  { features: [1.42, 0.77, 0.48, 0.98], label: "Oval" },
+  { features: [1.50, 0.72, 0.44, 1.05], label: "Oval" },
+  { features: [1.46, 0.76, 0.46, 0.99], label: "Oval" },
+  { features: [1.44, 0.74, 0.43, 1.01], label: "Oval" }, // Center: 1.45, 0.75, 0.45
 
-  // Round
-  { features: [1.05, 0.95, 0.98, 0.18], label: "Round" },
-  { features: [1.02, 0.97, 0.99, 0.16], label: "Round" },
-  { features: [1.08, 0.93, 0.97, 0.17], label: "Round" },
-  { features: [1.00, 0.96, 1.00, 0.15], label: "Round" },
-  { features: [1.04, 0.94, 0.96, 0.19], label: "Round" },
-  { features: [1.06, 0.98, 0.99, 0.16], label: "Round" },
-  { features: [1.03, 0.92, 0.98, 0.18], label: "Round" },
-  { features: [1.07, 0.96, 0.97, 0.17], label: "Round" },
+  // ROUND: Short face (ratio ~1.1-1.2), wide jaw but soft chin
+  { features: [1.15, 0.82, 0.50, 0.95], label: "Round" },
+  { features: [1.10, 0.85, 0.52, 0.92], label: "Round" },
+  { features: [1.20, 0.80, 0.48, 0.98], label: "Round" },
+  { features: [1.12, 0.83, 0.51, 0.94], label: "Round" },
+  { features: [1.18, 0.81, 0.49, 0.96], label: "Round" },
+  { features: [1.16, 0.84, 0.53, 0.93], label: "Round" }, // Center: 1.15, 0.82, 0.50
 
-  // Square
-  { features: [1.05, 1.00, 0.95, 0.15], label: "Square" },
-  { features: [1.02, 1.02, 0.93, 0.14], label: "Square" },
-  { features: [1.08, 0.98, 0.94, 0.13], label: "Square" },
-  { features: [1.03, 1.01, 0.96, 0.16], label: "Square" },
-  { features: [1.06, 0.99, 0.92, 0.12], label: "Square" },
-  { features: [1.01, 1.03, 0.95, 0.14], label: "Square" },
-  { features: [1.04, 0.97, 0.93, 0.15], label: "Square" },
-  { features: [1.07, 1.00, 0.94, 0.13], label: "Square" },
+  // SQUARE: Short/Medium face, wide jaw (nearly as wide as cheek), flat chin
+  { features: [1.25, 0.92, 0.65, 1.05], label: "Square" },
+  { features: [1.22, 0.95, 0.68, 1.02], label: "Square" },
+  { features: [1.30, 0.90, 0.62, 1.08], label: "Square" },
+  { features: [1.28, 0.93, 0.66, 1.04], label: "Square" },
+  { features: [1.24, 0.91, 0.64, 1.06], label: "Square" },
+  { features: [1.26, 0.94, 0.67, 1.03], label: "Square" }, // Center: 1.25, 0.92, 0.65
 
-  // Heart
-  { features: [1.25, 0.70, 0.90, 0.28], label: "Heart" },
-  { features: [1.28, 0.68, 0.88, 0.30], label: "Heart" },
-  { features: [1.22, 0.72, 0.92, 0.26], label: "Heart" },
-  { features: [1.30, 0.65, 0.87, 0.32], label: "Heart" },
-  { features: [1.26, 0.71, 0.89, 0.27], label: "Heart" },
-  { features: [1.24, 0.69, 0.91, 0.29], label: "Heart" },
-  { features: [1.27, 0.73, 0.86, 0.31], label: "Heart" },
-  { features: [1.23, 0.67, 0.90, 0.25], label: "Heart" },
+  // HEART: Medium height, narrow jaw (drastic taper), pointy chin
+  { features: [1.35, 0.65, 0.35, 1.10], label: "Heart" },
+  { features: [1.32, 0.62, 0.32, 1.08], label: "Heart" },
+  { features: [1.40, 0.68, 0.38, 1.12], label: "Heart" },
+  { features: [1.38, 0.64, 0.34, 1.09], label: "Heart" },
+  { features: [1.34, 0.66, 0.36, 1.11], label: "Heart" },
+  { features: [1.36, 0.63, 0.33, 1.07], label: "Heart" }, // Center: 1.35, 0.65, 0.35
 
-  // Oblong
-  { features: [1.55, 0.85, 0.88, 0.20], label: "Oblong" },
-  { features: [1.58, 0.83, 0.86, 0.19], label: "Oblong" },
-  { features: [1.52, 0.87, 0.90, 0.21], label: "Oblong" },
-  { features: [1.60, 0.82, 0.85, 0.18], label: "Oblong" },
-  { features: [1.53, 0.86, 0.89, 0.22], label: "Oblong" },
-  { features: [1.57, 0.84, 0.87, 0.20], label: "Oblong" },
-  { features: [1.50, 0.88, 0.91, 0.23], label: "Oblong" },
-  { features: [1.56, 0.81, 0.88, 0.19], label: "Oblong" },
+  // OBLONG: Very long face (>1.55), balanced jaw/chin
+  { features: [1.60, 0.78, 0.50, 1.15], label: "Oblong" },
+  { features: [1.65, 0.75, 0.48, 1.18], label: "Oblong" },
+  { features: [1.58, 0.80, 0.52, 1.12], label: "Oblong" },
+  { features: [1.62, 0.77, 0.49, 1.16], label: "Oblong" },
+  { features: [1.56, 0.79, 0.51, 1.14], label: "Oblong" },
+  { features: [1.68, 0.76, 0.47, 1.20], label: "Oblong" }, // Center: 1.62, 0.78, 0.50
 ];
 
 // Frame recommendations

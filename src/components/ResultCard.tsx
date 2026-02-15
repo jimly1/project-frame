@@ -96,9 +96,9 @@ const ResultCard = ({ faceShape, features }: ResultCardProps) => {
         <div className="grid grid-cols-2 gap-3">
           {[
             { label: "Rasio Tinggi/Lebar", value: features.heightWidthRatio.toFixed(3) },
-            { label: "Rasio Rahang/Dahi", value: features.jawForeheadRatio.toFixed(3) },
-            { label: "Rasio Tulang Pipi", value: features.cheekboneWidthRatio.toFixed(3) },
-            { label: "Rasio Dagu/Tinggi", value: features.chinHeightRatio.toFixed(3) },
+            { label: "Rasio Rahang/Pipi", value: features.jawForeheadRatio.toFixed(3) },
+            { label: "Rasio Dagu/Rahang", value: features.cheekboneWidthRatio.toFixed(3) },
+            { label: "Rasio Vertikal", value: features.chinHeightRatio.toFixed(3) },
           ].map((item) => (
             <div key={item.label} className="rounded-xl bg-muted/50 p-3">
               <p className="text-xs text-muted-foreground">{item.label}</p>
