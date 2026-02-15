@@ -25,7 +25,7 @@ const CameraCapture = ({ onImageCaptured, isProcessing }: CameraCaptureProps) =>
         videoRef.current.srcObject = mediaStream;
       }
     } catch {
-      setError("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
+      setError("Cannot access camera. Please ensure camera permissions are granted.");
     }
   }, []);
 
@@ -66,7 +66,7 @@ const CameraCapture = ({ onImageCaptured, isProcessing }: CameraCaptureProps) =>
           className="w-full gradient-primary text-primary-foreground h-12 rounded-xl font-display font-medium text-base shadow-soft hover:opacity-90 transition-opacity"
         >
           <Camera className="mr-2 h-5 w-5" />
-          Buka Kamera
+          Open Camera
         </Button>
         {error && (
           <p className="text-sm text-destructive text-center">{error}</p>
@@ -93,7 +93,7 @@ const CameraCapture = ({ onImageCaptured, isProcessing }: CameraCaptureProps) =>
           className="flex-1 gradient-primary text-primary-foreground h-11 rounded-xl font-display shadow-soft hover:opacity-90 transition-opacity"
         >
           <Camera className="mr-2 h-4 w-4" />
-          Ambil Foto
+          Take Photo
         </Button>
         <Button
           onClick={stopCamera}

@@ -58,15 +58,15 @@ const FaceUploader = ({ onImageSelected, isProcessing }: FaceUploaderProps) => {
         </div>
         <div>
           <p className="text-lg font-display font-semibold text-foreground">
-            Upload Foto Wajah
+            Upload Face Photo
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Drag & drop atau klik untuk memilih gambar
+            Drag & drop or click to select image
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <ImageIcon className="h-3.5 w-3.5" />
-          <span>JPG, PNG, WebP — Maks 10MB</span>
+          <span>JPG, PNG, WebP — Max 10MB</span>
         </div>
       </div>
     </div>

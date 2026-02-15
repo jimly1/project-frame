@@ -36,7 +36,7 @@ const Index = () => {
         setStatus("idle");
       } catch {
         setStatus("error");
-        setErrorMsg("Gagal memuat model AI. Coba refresh halaman.");
+        setErrorMsg("Failed to load AI models. Please refresh the page.");
       }
     };
     load();
@@ -56,13 +56,13 @@ const Index = () => {
 
         if (detections.length === 0) {
           setStatus("error");
-          setErrorMsg("Wajah tidak terdeteksi. Pastikan foto menampilkan wajah dengan jelas.");
+          setErrorMsg("Face not detected. Ensure the photo shows a clear face.");
           return;
         }
 
         if (detections.length > 1) {
           setStatus("error");
-          setErrorMsg("Terdeteksi lebih dari satu wajah. Gunakan foto dengan satu wajah saja.");
+          setErrorMsg("Multiple faces detected. Please use a photo with a single face.");
           return;
         }
 
@@ -82,7 +82,7 @@ const Index = () => {
         // Threshold: If nose deviation > 12% of face width, reject
         if (relativeYaw > 0.12) {
           setStatus("error");
-          setErrorMsg("Wajah tidak lurus ke depan. Mohon menghadap lurus ke kamera agar hasil akurat.");
+          setErrorMsg("Face is not looking straight ahead. Please face the camera directly for accurate results.");
           return;
         }
 
@@ -102,7 +102,7 @@ const Index = () => {
         setStatus("done");
       } catch {
         setStatus("error");
-        setErrorMsg("Terjadi kesalahan saat memproses gambar.");
+        setErrorMsg("An error occurred while processing the image.");
       }
     },
     [modelsLoaded]
@@ -128,7 +128,7 @@ const Index = () => {
                 FaceShape AI
               </h1>
               <p className="text-xs text-muted-foreground">
-                Klasifikasi Bentuk Wajah & Rekomendasi Kacamata
+                Face Shape Classification & Glasses Recommendation
               </p>
             </div>
           </div>
@@ -144,10 +144,10 @@ const Index = () => {
               <Sparkles className="h-3 w-3" /> Powered by KNN & face-api.js
             </div>
             <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">
-              Temukan Bentuk Wajah Anda
+              Discover Your Face Shape
             </h2>
             <p className="text-muted-foreground max-w-md mx-auto">
-              Upload foto atau gunakan kamera untuk menganalisis bentuk wajah dan mendapatkan rekomendasi frame kacamata terbaik.
+              Upload a photo or use the camera to analyze your face shape and get the best frame recommendations.
             </p>
           </div>
         )}
@@ -156,7 +156,7 @@ const Index = () => {
         {status === "loading-models" && (
           <div className="flex flex-col items-center justify-center py-20 gap-4 animate-fade-in">
             <Loader2 className="h-10 w-10 text-primary animate-spin" />
-            <p className="text-muted-foreground font-medium">Memuat model AI...</p>
+            <p className="text-muted-foreground font-medium">Loading AI models...</p>
           </div>
         )}
 
@@ -167,7 +167,7 @@ const Index = () => {
 
             <div className="flex items-center gap-3">
               <div className="flex-1 h-px bg-border" />
-              <span className="text-xs text-muted-foreground font-medium">atau</span>
+              <span className="text-xs text-muted-foreground font-medium">or</span>
               <div className="flex-1 h-px bg-border" />
             </div>
 
@@ -177,8 +177,8 @@ const Index = () => {
             {status === "processing" && (
               <div className="glass-card rounded-2xl p-6 text-center">
                 <Loader2 className="h-8 w-8 text-primary animate-spin mx-auto mb-3" />
-                <p className="font-display font-semibold text-foreground">Menganalisis wajah...</p>
-                <p className="text-sm text-muted-foreground mt-1">Mendeteksi landmark & mengklasifikasi</p>
+                <p className="font-display font-semibold text-foreground">Analyzing face...</p>
+                <p className="text-sm text-muted-foreground mt-1">Detecting landmarks & classifying</p>
               </div>
             )}
 
@@ -187,7 +187,7 @@ const Index = () => {
               <div className="rounded-2xl bg-destructive/10 border border-destructive/20 p-4 flex items-start gap-3">
                 <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-medium text-foreground">Deteksi Gagal</p>
+                  <p className="text-sm font-medium text-foreground">Detection Failed</p>
                   <p className="text-sm text-muted-foreground mt-1">{errorMsg}</p>
                 </div>
               </div>
@@ -209,7 +209,7 @@ const Index = () => {
                   onClick={reset}
                   className="w-full rounded-xl border border-border bg-card py-3 text-sm font-display font-medium text-foreground hover:bg-muted transition-colors"
                 >
-                  Analisis Foto Lain
+                  Analyze Another Photo
                 </button>
               </div>
               <ResultCard faceShape={result.knn} features={result.features} />
@@ -219,15 +219,15 @@ const Index = () => {
 
         {/* Tech info */}
         {status !== "done" && modelsLoaded && (
-          <div className="mt-12 grid grid-cols-3 gap-4 max-w-lg mx-auto text-center">
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto text-center">
             {[
               { label: "Face Detection", desc: "TinyFaceDetector" },
-              { label: "Landmarks", desc: "68 Titik Wajah" },
+              { label: "Landmarks", desc: "68 Face Landmarks" },
               { label: "Classifier", desc: "KNN (K=3)" },
             ].map((item) => (
               <div key={item.label} className="rounded-xl bg-card/60 border border-border/50 p-3">
                 <p className="text-xs font-display font-semibold text-foreground">{item.label}</p>
-                <p className="text-lg font-display font-semibold text-foreground">{item.desc}</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">{item.desc}</p>
               </div>
             ))}
           </div>

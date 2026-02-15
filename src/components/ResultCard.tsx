@@ -34,7 +34,7 @@ const ResultCard = ({ faceShape, features }: ResultCardProps) => {
             <Scan className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-sm text-muted-foreground font-medium">Bentuk Wajah Terdeteksi</p>
+            <p className="text-sm text-muted-foreground font-medium">Detected Face Shape</p>
             <h3 className="text-2xl font-display font-bold text-foreground">
               {faceShape.label}
             </h3>
@@ -68,7 +68,7 @@ const ResultCard = ({ faceShape, features }: ResultCardProps) => {
               <Glasses className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground font-medium">Rekomendasi Frame</p>
+              <p className="text-sm text-muted-foreground font-medium">Frame Recommendation</p>
               <h4 className="text-lg font-display font-semibold text-foreground">
                 {rec.emoji} {rec.frames}
               </h4>
@@ -79,7 +79,7 @@ const ResultCard = ({ faceShape, features }: ResultCardProps) => {
             <div className="mt-4 rounded-xl bg-muted/30 p-3 flex items-center justify-center">
               <img
                 src={frameImages[rec.imageKey]}
-                alt={`Contoh ${rec.frames}`}
+                alt={`Example ${rec.frames}`}
                 className="h-28 object-contain"
               />
             </div>
@@ -91,14 +91,14 @@ const ResultCard = ({ faceShape, features }: ResultCardProps) => {
       <div className="glass-card rounded-2xl p-6">
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="h-4 w-4 text-primary" />
-          <p className="font-display font-semibold text-foreground">Detail Fitur</p>
+          <p className="font-display font-semibold text-foreground">Feature Details</p>
         </div>
         <div className="grid grid-cols-2 gap-3">
           {[
-            { label: "Rasio Tinggi/Lebar", value: features.heightWidthRatio.toFixed(3) },
-            { label: "Rasio Rahang/Pipi", value: features.jawForeheadRatio.toFixed(3) },
-            { label: "Rasio Dagu/Rahang", value: features.cheekboneWidthRatio.toFixed(3) },
-            { label: "Rasio Vertikal", value: features.chinHeightRatio.toFixed(3) },
+            { label: "Height/Width Ratio", value: features.heightWidthRatio.toFixed(3) },
+            { label: "Jaw/Cheek Ratio", value: features.jawForeheadRatio.toFixed(3) },
+            { label: "Chin/Jaw Ratio", value: features.cheekboneWidthRatio.toFixed(3) },
+            { label: "Vertical Ratio", value: features.chinHeightRatio.toFixed(3) },
           ].map((item) => (
             <div key={item.label} className="rounded-xl bg-muted/50 p-3">
               <p className="text-xs text-muted-foreground">{item.label}</p>

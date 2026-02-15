@@ -121,32 +121,32 @@ export const faceShapeDataset: DataPoint[] = [
 // Frame recommendations
 export const frameRecommendations: Record<string, { frames: string; description: string; emoji: string; imageKey: string }> = {
   Oval: {
-    frames: "Hampir semua jenis frame cocok",
-    description: "Wajah oval adalah bentuk paling serbaguna. Anda bisa menggunakan frame aviator, wayfarer, cat-eye, atau rectangular.",
+    frames: "Almost any frame style works",
+    description: "Oval faces are the most versatile. You can wear aviators, wayfarers, cat-eye, or rectangular frames.",
     emoji: "✨",
     imageKey: "aviator",
   },
   Round: {
     frames: "Rectangular / Angular frames",
-    description: "Frame angular dan rectangular akan menambah definisi dan membuat wajah terlihat lebih tirus dan proporsional.",
+    description: "Angular and rectangular frames add definition and make the face appear slimmer and more proportional.",
     emoji: "📐",
     imageKey: "rectangular",
   },
   Square: {
     frames: "Round / Oval frames",
-    description: "Frame bulat atau oval akan melunakkan sudut-sudut wajah dan memberikan kesan lebih halus dan seimbang.",
+    description: "Round or oval frames soften facial angles and provide a smoother, balanced look.",
     emoji: "⭕",
     imageKey: "round",
   },
   Heart: {
     frames: "Bottom-heavy frames",
-    description: "Frame yang lebih lebar di bagian bawah akan menyeimbangkan dahi yang lebar dan dagu yang lebih sempit.",
+    description: "Frames wider at the bottom balance a broad forehead and narrow chin.",
     emoji: "💜",
     imageKey: "bottom-heavy",
   },
   Oblong: {
     frames: "Oversized / Wide frames",
-    description: "Frame oversized atau lebar akan membuat wajah terlihat lebih pendek dan proporsional.",
+    description: "Oversized or wide frames make the face appear shorter and more proportional.",
     emoji: "🔲",
     imageKey: "oversized",
   },
